@@ -24,6 +24,11 @@
   "pre-commit": [
     "lint-precommit"
   ],
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "./node_modules/.bin/eslint"
+    ]
+  },
   "keywords": [],
   "author": "Sarkany Adrian <sarkany1@outlook.com>",
   "bugs": {
