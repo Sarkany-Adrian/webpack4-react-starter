@@ -1,0 +1,20 @@
+[ignore]
+<PROJECT_ROOT>/build
+<PROJECT_ROOT>/node_modules
+
+[include]
+
+[libs]
+
+[lints]
+all=warn
+
+[options]
+;emoji=true
+module.system=haste
+module.name_mapper='^containers' ->'<PROJECT_ROOT>/src/containers'
+module.name_mapper='^components' ->'<PROJECT_ROOT>/src/components'
+module.name_mapper='^atoms' ->'<PROJECT_ROOT>/src/atoms'
+module.name_mapper='^constants' ->'<PROJECT_ROOT>/src/constants'
+
+[strict]

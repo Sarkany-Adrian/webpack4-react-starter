@@ -1,8 +1,9 @@
+// @flow
 import React from "react";
 import { Switch } from "react-router-dom";
 
 // Layout Wrapper
-import Layout from 'containers/Layout';
+import Layout from "containers/Layout";
 
 // Page containers
 import Home from "containers/Home";

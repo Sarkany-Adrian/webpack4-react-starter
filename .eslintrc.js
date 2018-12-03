@@ -12,21 +12,22 @@ module.exports = {
     'airbnb',
     'prettier',
     'prettier/react',
+    'prettier/flowtype'
   ],
-
-  plugins: ['prettier', 'react-hooks'],
-
+  plugins: [
+    'prettier',
+    'react-hooks',
+    'flowtype'
+  ],
   globals: {
     __DEV__: true,
   },
-
   env: {
     es6: true,
     node: true,
     browser: true,
     jest: true,
   },
-
   rules: {
     'react-hooks/rules-of-hooks': 'error',
     'import/no-extraneous-dependencies': ['error', { packageDir: '.' }],

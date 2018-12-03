@@ -14,6 +14,7 @@ module.exports = (api) => {
   presets: [
     [
       '@babel/preset-env',
+      '@babel/flow',
       {
         targets: {
           // last version of internet explorer supported by microsoft
