@@ -17,12 +17,14 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "./node_modules/.bin/rimraf dist/",
     "rm-dep": "rm -rf node_modules && rm -rf package-lock.json",
-    "flow:status": "flow status --quiet",
+    "flow:status": "./node_modules/.bin/flow status --quiet",
+    "flow:check": "./node_modules/.bin/flow check",
     "lint:all": "./node_modules/.bin/eslint . --ext .js --ext .jsx",
     "lint-precommit": "lint-staged"
   },
   "pre-commit": [
-    "lint-precommit"
+    "lint-precommit",
+    "flow:check"
   ],
   "lint-staged": {
     "*.{js,jsx}": [
