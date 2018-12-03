@@ -1,7 +1,7 @@
 {
   "name": "react-setup2",
   "version": "1.0.0",
-  "description": "Starter project using with webpack and react",
+  "description": "Starter project using with webpack 4 and react",
   "main": "index.js",
   "engines": {
     "node": "10.6.0",
@@ -15,17 +15,13 @@
     "start": "./node_modules/.bin/webpack-dev-server --mode development",
     "build": "./node_modules/.bin/webpack --env.production --mode production",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "./node_modules/.bin/rimraf dist/",
-    "rm-dep": "rm -rf node_modules && rm -rf package-lock.json",
+    "clean": "./node_modules/.bin/rimraf build/",
     "flow:status": "./node_modules/.bin/flow status --quiet",
     "flow:check": "./node_modules/.bin/flow check",
     "lint:all": "./node_modules/.bin/eslint . --ext .js --ext .jsx",
-    "lint-precommit": "lint-staged"
+    "lint-precommit": "lint-staged",
+    "rm-dep": "./node_modules/.bin/rimraf node_modules && ./node_modules/.bin/rimraf package-lock.json"
   },
-  "pre-commit": [
-    "lint-precommit",
-    "flow:check"
-  ],
   "lint-staged": {
     "*.{js,jsx}": [
       "./node_modules/.bin/eslint"
@@ -34,7 +30,7 @@
   "keywords": [],
   "author": "Sarkany Adrian <sarkany1@outlook.com>",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/Sarkany-Adrian/webpack4-react-starter/issues"
   },
   "license": "ISC",
   "devDependencies": {
@@ -57,6 +53,7 @@
     "eslint-plugin-react": "7.11.1",
     "flow-bin": "0.87.0",
     "html-webpack-plugin": "3.2.0",
+    "husky": "1.2.0",
     "mini-css-extract-plugin": "0.4.5",
     "prettier": "1.15.3",
     "rimraf": "2.6.2",
