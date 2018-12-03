@@ -1,6 +1,6 @@
 // @flow
 import React from "react";
-import "components/Footer/style.scss";
+import "./style.scss";
 
 const Footer = () => <div className="footer">footer</div>;
 

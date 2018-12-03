@@ -1,40 +1,39 @@
-const path = require('path');
-const webpack = require('webpack');
-const Dotenv = require('dotenv-webpack');
+const path = require("path");
+const webpack = require("webpack");
+const Dotenv = require("dotenv-webpack");
 
 // paths
-const buildDir = path.resolve(__dirname, 'build');
-const srcDir = path.resolve(__dirname, 'src');
+const buildDir = path.resolve(__dirname, "build");
+const srcDir = path.resolve(__dirname, "src");
 
 // plugins
-const HtmlWebPackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const autoprefixer = require('autoprefixer');
 
 const minimizeCssOptions = { discardComments: { removeAll: true } };
 
 module.exports = env => {
   const isProduction = !!(env && env.production);
-  const staticAssetName = isProduction
-    ? '[hash:8].[ext]'
-    : '[path][name].[ext]?[hash:8]';
+  const staticAssetName = isProduction ? "[hash:8].[ext]" : "[path][name].[ext]?[hash:8]";
 
   return {
     entry: {
-      app: './src/app.js'
+      app: "./src/app.js"
     },
     resolve: {
-      modules: ['node_modules', 'src'],
-      extensions: ['.js', '.jsx']
+      modules: ["node_modules", "src"],
+      extensions: [".js", ".jsx"]
     },
     output: {
-      publicPath: '/',
-      filename: isProduction ? '[name].[hash:8].bundle.js' : '[name].bundle.js',
-      chunkFilename: isProduction ? '[name].[hash:8].chunk.js' : '[name].chunk.js',
+      publicPath: "/",
+      filename: isProduction ? "[name].[hash:8].bundle.js" : "[name].bundle.js",
+      chunkFilename: isProduction ? "[name].[hash:8].chunk.js" : "[name].chunk.js",
       path: buildDir
     },
-    target: 'web',
-    mode: isProduction ? 'production' : 'development',
+    target: "web",
+    mode: isProduction ? "production" : "development",
     module: {
       strictExportPresence: true,
       rules: [
@@ -42,7 +41,7 @@ module.exports = env => {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
           use: {
-            loader: 'babel-loader',
+            loader: "babel-loader",
             options: {
               cacheDirectory: !isProduction // speeds up the build on dev by caching
             }
@@ -52,13 +51,11 @@ module.exports = env => {
           test: /\.(css|scss|sass)$/,
           rules: [
             {
-              loader: isProduction
-                ? [MiniCssExtractPlugin.loader]
-                : ['css-hot-loader', MiniCssExtractPlugin.loader]
+              loader: isProduction ? [MiniCssExtractPlugin.loader] : ["css-hot-loader", MiniCssExtractPlugin.loader]
             },
             {
               exclude: srcDir,
-              loader: 'css-loader',
+              loader: "css-loader",
               options: {
                 sourceMap: !isProduction,
                 minimize: isProduction ? minimizeCssOptions : false
@@ -66,38 +63,33 @@ module.exports = env => {
             },
             {
               include: srcDir,
-              loader: 'css-loader',
+              loader: "css-loader",
               options: {
                 // CSS Loader https://github.com/webpack/css-loader
                 importLoaders: 2,
                 sourceMap: !isProduction,
                 // CSS Modules https://github.com/css-modules/css-modules
                 modules: false,
-                localIdentName: '[local]',
+                localIdentName: "[local]",
                 // CSS Nano http://cssnano.co/
                 minimize: isProduction ? minimizeCssOptions : false
               }
             },
             {
               test: /\.(scss|sass)$/,
-              loader: 'sass-loader'
+              loader: "sass-loader"
             },
             {
-              loader: 'postcss-loader',
+              loader: "postcss-loader",
               options: {
                 plugins: () => [
                   autoprefixer({
-                    browsers: [
-                      '>1%',
-                      'last 4 versions',
-                      'Firefox ESR',
-                      'not ie < 11'
-                    ],
-                    flexbox: 'no-2009'
+                    browsers: [">1%", "last 4 versions", "Firefox ESR", "not ie < 11"],
+                    flexbox: "no-2009"
                   })
                 ]
               }
-            },
+            }
           ]
         },
         {
@@ -109,7 +101,7 @@ module.exports = env => {
                 // inline lightweight SVGs as UTF-8 encoded DataUrl string
                 {
                   test: /\.svg$/,
-                  loader: 'svg-url-loader',
+                  loader: "svg-url-loader",
                   options: {
                     name: staticAssetName,
                     limit: 4096 // 4kb
@@ -118,7 +110,7 @@ module.exports = env => {
 
                 // inline lightweight images as Base64 encoded DataUrl string
                 {
-                  loader: 'url-loader',
+                  loader: "url-loader",
                   options: {
                     name: staticAssetName,
                     limit: 4096 // 4kb
@@ -129,7 +121,7 @@ module.exports = env => {
 
             // or return public URL to image resource
             {
-              loader: 'file-loader',
+              loader: "file-loader",
               options: {
                 name: staticAssetName
               }
@@ -139,14 +131,8 @@ module.exports = env => {
         // return public URL for all assets unless explicitly excluded
         // DO'NT FORGET to update `exclude` list when you're adding a new loader
         {
-          exclude: [
-            /\.(js|jsx)$/,
-            /\.(css|scss|sass)$/,
-            /\.(bmp|gif|jpg|jpeg|png|svg)$/,
-            /\.json$/,
-            /\.html$/
-          ],
-          loader: 'file-loader',
+          exclude: [/\.(js|jsx)$/, /\.(css|scss|sass)$/, /\.(bmp|gif|jpg|jpeg|png|svg)$/, /\.json$/, /\.html$/],
+          loader: "file-loader",
           options: {
             name: staticAssetName
           }
@@ -158,8 +144,8 @@ module.exports = env => {
         cacheGroups: {
           commons: {
             test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all'
+            name: "vendors",
+            chunks: "all"
           }
         }
       },
@@ -173,26 +159,27 @@ module.exports = env => {
       open: true,
       port: 3000,
       watchOptions: {
-        ignored: '/node_modules/'
+        ignored: "/node_modules/"
       }
     },
     bail: isProduction,
     cache: !isProduction,
-    devtool: isProduction ? 'source-map' : 'chep-module-inline-source-map',
+    devtool: isProduction ? "source-map" : "chep-module-inline-source-map",
     plugins: [
       isProduction ? false : new webpack.HotModuleReplacementPlugin(),
-      new CleanWebpackPlugin(['build']),
+      new CleanWebpackPlugin(["build"]),
       new Dotenv({
         safe: true
       }),
       new MiniCssExtractPlugin({
-        filename: isProduction ? '[name].[hash].css' : '[name].css',
-        chunkFilename: isProduction ? '[id].[hash].css' : '[id].css'
+        filename: isProduction ? "[name].[hash].css" : "[name].css",
+        chunkFilename: isProduction ? "[id].[hash].css" : "[id].css"
       }),
       new HtmlWebPackPlugin({
-        template: './src/index.html',
-        filename: './index.html',
+        template: "./src/index.html",
+        filename: "./index.html",
         inject: true
       })
     ].filter(Boolean)
-}};
+  };
+};

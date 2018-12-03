@@ -12,9 +12,9 @@ module.exports = (api) => {
   return {
   comments: !isProduction, // no comments in production
   presets: [
+    '@babel/flow',
     [
       '@babel/preset-env',
-      '@babel/flow',
       {
         targets: {
           // last version of internet explorer supported by microsoft
