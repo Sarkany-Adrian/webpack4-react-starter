@@ -181,7 +181,7 @@ module.exports = env => {
     },
     bail: isProduction,
     cache: !isProduction,
-    devtool: isProduction ? 'source-map' : 'chep-module-inline-source-map',
+    devtool: isProduction ? 'source-map' : 'cheap-module-inline-source-map',
     plugins: [
       isProduction ? false : new webpack.HotModuleReplacementPlugin(),
       new CleanWebpackPlugin(['build']),
